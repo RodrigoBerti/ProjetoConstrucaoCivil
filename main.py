@@ -1,18 +1,18 @@
 import cv2  # Biblioteca OpenCV para processamento de imagem
 import pytesseract  # Biblioteca para reconhecimento de texto em imagens
-import flask
-from flask import render_template
+from flask import render_template, Flask
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 #criando pagina
 @app.route("/")
 def homepage():
-    return render_template("homepage.html")
+    return render_template('homepage.html')
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template('login.html')
+
 # 1. Ler a imagem
 def ler_imagem(caminho_da_imagem):
     imagem = cv2.imread(caminho_da_imagem)

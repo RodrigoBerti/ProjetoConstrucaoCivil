@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Projeto de Orçamento</title>
-    <link rel="stylesheet" href="{{utl_for('static' filename='css/homepage.css')}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/Static/css/homepage.css">
 </head>
 <body>
-    <div class="titulo titular">
-        teste
-        <p>Oraçamento para contrução Civil</p>
-    </div>
+    <header class="hm_header">
+        <p>Projeto Construção Civil</p>
+    </header>
+    <main>
+        <div class="hm_caixaCaptura">
+            <form action="/pegaImagem" method="get">
+            <p><label for="imagemPlanta">Insira a imagem da planta da casa. </label></p>
+            <br>
+            <div><input type="file" class="hm_" id="imagemPlanta" name="imagemPlanta" accept="image/*" formaction="URL" src="URL"></div>
+            <br><br><br>
+            <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </main>
 </body>
 </html>

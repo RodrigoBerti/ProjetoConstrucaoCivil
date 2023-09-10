@@ -1,7 +1,50 @@
-.titulo{
-    font: bolder, 'Arial';
-    font-size: 100px;
-    color: black;
-    width: 100%;
-    text-align: right;
+@charset "UTF-8";
+/*
+  Em HTML é id = em CSS é #
+  Em HTML é class = em CSS é .
+*/
+body {
+    background-color: #568EA3;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
+
+main {
+    width: 70%;
+    background-color: white;
+    margin-top: 0px;
+    height: 100vh;
+    padding-top: 10px;
+    margin: auto;
+    border: 25px;
+    border-radius: 15px;
+}
+
+.hm_header {
+    display: flex;
+    align-items: center;        
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, gray,black);
+    margin: 0px;
+    height: 100px;
+}
+
+.hm_caixaCaptura {
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.199) 2px 2px;
+    border-color: black;
+    border-radius: 5px;
+    width: 300px;
+    height: 200px;
+    text-align: center;
+}
+
+.hm_header p {
+    text-align: center;
+    margin: 50% 0%;
+    width: 100%;
+}
+
