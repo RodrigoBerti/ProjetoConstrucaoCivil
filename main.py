@@ -1,7 +1,18 @@
 import cv2  # Biblioteca OpenCV para processamento de imagem
 import pytesseract  # Biblioteca para reconhecimento de texto em imagens
+import flask
+from flask import render_template
 
+app = flask.Flask(__name__)
 
+#criando pagina
+@app.route("/")
+def homepage():
+    return render_template("homepage.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
 # 1. Ler a imagem
 def ler_imagem(caminho_da_imagem):
     imagem = cv2.imread(caminho_da_imagem)
@@ -62,7 +73,6 @@ def mostrar_informacoes(informacoes):
     print(informacoes)
 
 
-# Exemplo de uso
 if __name__ == "__main__":
     caminho_da_imagem = 'Design-sem-nome.png'
     imagem = ler_imagem(caminho_da_imagem)
@@ -70,3 +80,4 @@ if __name__ == "__main__":
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
     mostrar_informacoes(informacoes)
+    app.run(host='192.168.0.166',debug=True)
