@@ -2,6 +2,12 @@ import cv2  # Biblioteca OpenCV para processamento de imagem
 import pytesseract  # Biblioteca para reconhecimento de texto em imagens
 from flask import render_template, Flask
 
+""""mydb = mysql.connector.connect(
+    host='192.168.0.190',
+    user='sys',
+    password='masterkey',
+    database='teste',
+)"""""
 app = Flask(__name__)
 
 #criando pagina
