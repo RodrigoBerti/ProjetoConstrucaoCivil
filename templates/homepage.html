@@ -24,7 +24,9 @@
         <div class="hm_caixaCaptura">
             <label >Selecione o material</label>
             <select name="materiais">
-                <option>{{material}}</option>
+                {% for mat in material%}
+                <option>{{material}</option>
+                {% endfor %}
             </select>
         </div>
     </main>

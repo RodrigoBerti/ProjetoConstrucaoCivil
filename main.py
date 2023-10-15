@@ -38,11 +38,7 @@ def get_material():
             }
         )
 
-    return make_response(
-        jsonify(
-            dados=materiais
-        )
-    )
+    return material
 
 
 # 1. Ler a imagem
