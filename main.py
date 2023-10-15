@@ -3,19 +3,31 @@ import pytesseract  # Biblioteca para reconhecimento de texto em imagens
 from flask import render_template, Flask, make_response, jsonify
 import mysql.connector as connect, mysql
 
-
 mydb = mysql.connector.connect(
     host='localhost',
     user='root',
     password='masterkey',
-    database='projetoconstrucaocivil',
+    database='teste',
 )
 
 app = Flask(__name__)
 
+
+# criando pagina
+@app.route("/")
+def homepage():
+    material = get_material()
+    return render_template("homepage.html", material=material)
+
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
+
+
 def get_material():
     cursor = mydb.cursor()
-    cursor.execute('select descricao from material ')
+    cursor.execute('select material.codsinapi,material.descrição from material')
     meus_materiais = cursor.fetchall()
     materiais = list()
     for material in meus_materiais:
@@ -25,17 +37,12 @@ def get_material():
                 'descrição': material[1]
             }
         )
-    return render_template("homepage.html", materiais=materiais)
 
-# criando pagina
-@app.route("/")
-def homepage():
-    return get_material()
-
-
-@app.route("/login")
-def login():
-    return render_template('login.html')
+    return make_response(
+        jsonify(
+            dados=materiais
+        )
+    )
 
 
 # 1. Ler a imagem
@@ -107,4 +114,4 @@ if __name__ == "__main__":
     imagem_processada = preprocessar_imagem(imagem)
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
-    app.run(host='localhost', debug=True)
+    app.run(host='192.168.0.166', debug=True)
