@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
     host='localhost',
     user='root',
     password='masterkey',
-    database='teste',
+    database='projetoconstrucaocivil',
 )
 
 app = Flask(__name__)
@@ -27,18 +27,9 @@ def login():
 
 def get_material():
     cursor = mydb.cursor()
-    cursor.execute('select material.codsinapi,material.descrição from material')
+    cursor.execute('select material.descricao from material')
     meus_materiais = cursor.fetchall()
-    materiais = list()
-    for material in meus_materiais:
-        materiais.append(
-            {
-                'codsinapi': material[0],
-                'descrição': material[1]
-            }
-        )
-
-    return material
+    return meus_materiais
 
 
 # 1. Ler a imagem
@@ -110,4 +101,4 @@ if __name__ == "__main__":
     imagem_processada = preprocessar_imagem(imagem)
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
-    app.run(host='192.168.0.166', debug=True)
+    app.run(host='localhost', debug=True)
