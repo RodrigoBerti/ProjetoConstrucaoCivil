@@ -1,31 +1,59 @@
 import cv2  # Biblioteca OpenCV para processamento de imagem
 import pytesseract  # Biblioteca para reconhecimento de texto em imagens
-from flask import render_template, Flask
+from flask import render_template, Flask, make_response, jsonify
+import mysql.connector as connect, mysql
 
-""""mydb = mysql.connector.connect(
-    host='192.168.0.190',
-    user='sys',
+mydb = mysql.connector.connect(
+    host='localhost',
+    user='root',
     password='masterkey',
     database='teste',
-)"""""
+)
+
 app = Flask(__name__)
 
-#criando pagina
+
+# criando pagina
 @app.route("/")
 def homepage():
-    return render_template('homepage.html')
+    material = get_material()
+    return render_template("homepage.html", material=material)
+
 
 @app.route("/login")
 def login():
     return render_template('login.html')
+
+
+def get_material():
+    cursor = mydb.cursor()
+    cursor.execute('select material.codsinapi,material.descrição from material')
+    meus_materiais = cursor.fetchall()
+    materiais = list()
+    for material in meus_materiais:
+        materiais.append(
+            {
+                'codsinapi': material[0],
+                'descrição': material[1]
+            }
+        )
+
+    return make_response(
+        jsonify(
+            dados=materiais
+        )
+    )
+
 
 # 1. Ler a imagem
 def ler_imagem(caminho_da_imagem):
     imagem = cv2.imread(caminho_da_imagem)
     return imagem
 
+
 # oponter onde está o executavel do tesseract
-pytesseract.pytesseract.tesseract_cmd="C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+
 
 # 2. Pré-processamento da imagem (por exemplo, ajuste de brilho/contraste, redimensionamento, binarização)
 def preprocessar_imagem(imagem):
@@ -37,8 +65,9 @@ def preprocessar_imagem(imagem):
 
 # 3. Reconhecimento de texto na imagem
 def extrair_informacoes(imagem_processada2):
-    imagem_redimensionada = cv2.resize(imagem_processada2, None,fx=2,fy=2,interpolation=cv2.INTER_CUBIC)
-    texto_extraido = pytesseract.image_to_string(imagem_redimensionada, lang='por')  # Reconhecimento de texto em português
+    imagem_redimensionada = cv2.resize(imagem_processada2, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+    texto_extraido = pytesseract.image_to_string(imagem_redimensionada,
+                                                 lang='por')  # Reconhecimento de texto em português
     print(texto_extraido)
     return texto_extraido
 
@@ -85,5 +114,4 @@ if __name__ == "__main__":
     imagem_processada = preprocessar_imagem(imagem)
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
-    mostrar_informacoes(informacoes)
-    app.run(host='192.168.0.166',debug=True)
+    app.run(host='192.168.0.166', debug=True)
