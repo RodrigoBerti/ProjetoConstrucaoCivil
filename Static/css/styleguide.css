@@ -1,0 +1,30 @@
+:root {
+  --brancodefault: rgba(255, 255, 255, 1);
+  --pretopreto: rgba(51, 51, 51, 1);
+  --lighttextprimary: rgba(0, 0, 0, 0.87);
+  --components-button-large-font-family: "Roboto-Medium", Helvetica;
+  --components-button-large-font-weight: 500;
+  --components-button-large-font-size: 15px;
+  --components-button-large-letter-spacing: 0.46000000834465027px;
+  --components-button-large-line-height: 26px;
+  --components-button-large-font-style: normal;
+  --poetsen-one-font-family: "PoetsenOne-Regular", Helvetica;
+  --poetsen-one-font-weight: 400;
+  --poetsen-one-font-size: 24px;
+  --poetsen-one-letter-spacing: 0px;
+  --poetsen-one-line-height: normal;
+  --poetsen-one-font-style: normal;
+  --components-button-medium-font-family: "Roboto-Medium", Helvetica;
+  --components-button-medium-font-weight: 500;
+  --components-button-medium-font-size: 14px;
+  --components-button-medium-letter-spacing: 0.4000000059604645px;
+  --components-button-medium-line-height: 24px;
+  --components-button-medium-font-style: normal;
+  --components-button-small-font-family: "Roboto-Medium", Helvetica;
+  --components-button-small-font-weight: 500;
+  --components-button-small-font-size: 13px;
+  --components-button-small-letter-spacing: 0.46000000834465027px;
+  --components-button-small-line-height: 22px;
+  --components-button-small-font-style: normal;
+  --shadow-blur-20: 0px 1px 20px 0px rgba(0, 0, 0, 0.25);
+}
