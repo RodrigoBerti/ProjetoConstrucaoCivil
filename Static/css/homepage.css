@@ -37,7 +37,7 @@ main {
     box-shadow: rgba(0, 0, 0, 0.199) 2px 2px;
     border-color: black;
     border-radius: 5px;
-    width: 300px;
+    width: 900px;
     height: 200px;
     text-align: center;
 }
@@ -50,5 +50,8 @@ main {
 
 .lista{
     text-align: center;
+}
 
+.login{
+    font-size: 20px;
 }

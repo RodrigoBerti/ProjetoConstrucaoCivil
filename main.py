@@ -1,13 +1,16 @@
+from urllib import request
+
 import cv2  # Biblioteca OpenCV para processamento de imagem
 import pytesseract  # Biblioteca para reconhecimento de texto em imagens
-from flask import render_template, Flask, make_response, jsonify
+import requests.utils
+from flask import render_template, Flask, request
 import mysql.connector as connect, mysql
 
 mydb = mysql.connector.connect(
     host='localhost',
     user='root',
     password='masterkey',
-    database='projetoconstrucaocivil',
+    database='Teste',
 )
 
 app = Flask(__name__)
@@ -27,10 +30,14 @@ def login():
 
 def get_material():
     cursor = mydb.cursor()
-    cursor.execute('select material.descricao from material')
+    cursor.execute('select material.descrição from material')
     meus_materiais = cursor.fetchall()
     return meus_materiais
-
+@app.route("/adicionar",methods=["POST"])
+def adicionar_material():
+    material= request.form['materiais']
+    quantidade = request.form['quantidade']
+    return render_template("homepage.html",material_adicionado=material,quantidade=quantidade)
 
 # 1. Ler a imagem
 def ler_imagem(caminho_da_imagem):

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="/Static/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/homepage.css')}}">
 </head>
 <body>
     <header class="hm_header">
         <p>Projeto Construção Civil</p>
+        <a href="login" class="login">Login</a>
     </header>
     <main>
         <div class="hm_caixaCaptura">
@@ -23,19 +24,27 @@
         </div>
         <br>
         <div class="hm_caixaCaptura">
-            <label >Selecione o material</label>
-            <br><br>
-            <select name="materiais">
-                <option>{{ materiais }}</option>
-            </select>
-            <br><br>
-            <ul>
-                {% for material in materiais %}
-                    <li>{{ material }}</li>
-                {% endfor %}
-            </ul>
-            <br><br>
-            <p>{{ teste }}</p>
+            {% block conteudo %}
+                <from action="adicionar" method="POST">
+                    <label >Selecione o material</label>
+                    <br><br>
+                    <select name="materiais">
+                        {% for mat in material %}
+                        <option>{{mat}}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
+                    Quantidade:<input type="number" name="quantidade">
+                    <br><br>
+                    <button type="submit">Adicionar</button>
+                </from>
+            {% endblock %}
+        </div>
+        <div class="hm_caixaCaptura">
+            <br>
+            <label>Lista de materiais adicionados</label><br>
+            Descrição do material:<option>{{material_adicionado}}</option><br>
+            Quantidade:<option>{{quantidade}}</option>
         </div>
     </main>
 </body>
