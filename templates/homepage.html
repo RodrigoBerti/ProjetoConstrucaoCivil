@@ -25,7 +25,7 @@
         <br>
         <div class="hm_caixaCaptura">
             {% block conteudo %}
-                <from action="adicionar" method="POST">
+                <form action="adicionar" method="POST">
                     <label >Selecione o material</label>
                     <br><br>
                     <select name="materiais">
@@ -37,14 +37,23 @@
                     Quantidade:<input type="number" name="quantidade">
                     <br><br>
                     <button type="submit">Adicionar</button>
-                </from>
+                </form>
             {% endblock %}
         </div>
         <div class="hm_caixaCaptura">
             <br>
             <label>Lista de materiais adicionados</label><br>
-            Descrição do material:<option>{{material_adicionado}}</option><br>
-            Quantidade:<option>{{quantidade}}</option>
+            <ul>
+                {% for mats in materiais %}
+                <li>
+                    <form action="/atualizar/{{loop.index0}}" method="POST">
+                        <span>{{mats['material']}} | <input name="quantidade" value="{{mats['quantidade']}}"></span>
+                        <button type="submit">Editar</button>
+                        <a href="/excluir/{{loop.index0 }}"> ❌</a>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </main>
 </body>
