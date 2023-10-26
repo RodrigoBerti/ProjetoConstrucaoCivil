@@ -3,6 +3,7 @@
   Em HTML é id = em CSS é #
   Em HTML é class = em CSS é .
 */
+
 body {
     background-color: #568EA3;
     font-family: Arial, Helvetica, sans-serif;
@@ -19,7 +20,12 @@ main {
     border: 25px;
     border-radius: 15px;
 }
-
+@media (max-width: 768px) {
+    .main {
+        width: 90%; /* Largura maior para telas menores */
+        padding: 10px; /* Reduz o espaçamento na parte superior */
+    }
+}
 .hm_header {
     display: flex;
     align-items: center;        
@@ -31,7 +37,11 @@ main {
     margin: 0px;
     height: 100px;
 }
-
+@media(max-width:1200px){
+    hm_header{
+        width: 1000px
+    }
+}
 .hm_caixaCaptura {
     margin: auto;
     box-shadow: rgba(0, 0, 0, 0.199) 2px 2px;
@@ -41,17 +51,30 @@ main {
     height: 200px;
     text-align: center;
 }
-
+@media(max-width:768px){
+    hm_caixaCaptura{
+        width: 100%
+        max-width: 400px
+    }
+}
 .hm_header p {
     text-align: center;
     margin: 50% 0%;
     width: 100%;
 }
-
+@media(max-width:100%{
+    .hm_header p{
+        width: 80%
+    }
+}
 .lista{
     text-align: center;
 }
-
+@media(max-width:1200px){
+    lista{
+        width: 1000px
+    }
+}
 .login{
     font-size: 20px;
 }
