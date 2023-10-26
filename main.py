@@ -5,13 +5,25 @@ import requests.utils
 from flask import render_template, Flask, request, redirect
 import mysql.connector as connect, mysql
 
-mydb = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='masterkey',
-    database='teste',
-)
+config = {
+    'host':'localhost',
+    'user':'root',
+    'password':'masterkey',
+    'database':'Teste',
+}
+# faz a connexão com o banco de dados
+def conectorBD():
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Banco de dados conectado com sucesso")
+    except:
+        print("Erro com a conexão do banco de dados")
+    else:
+        return conn
 
+#desconecta do banco de dados
+def desconectandoBD(conn):
+    return conn.close()
 app = Flask(__name__)
 
 materiais = []
@@ -28,7 +40,8 @@ def login():
 
 
 def get_material():
-    cursor = mydb.cursor()
+    mybd = conectorBD()
+    cursor = mybd.cursor()
     cursor.execute('select material.descrição from material')
     meus_materiais = cursor.fetchall()
     return meus_materiais
