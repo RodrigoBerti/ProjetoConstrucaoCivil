@@ -10,7 +10,11 @@
 <body>
     <header class="hm_header">
         <p>Projeto Construção Civil</p>
-        <a href="login" class="login">Login</a>
+        {% if username != None %}
+        <p>Usuario: {{username}}</p>
+        {% else %}
+        <a href="login" class="login">Fazer Login</a>
+        {% endif %}
     </header>
     <main>
         <div class="hm_caixaCaptura">

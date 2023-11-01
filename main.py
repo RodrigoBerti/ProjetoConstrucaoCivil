@@ -2,7 +2,7 @@ from urllib import request
 
 from lerImagens import *
 import requests.utils
-from flask import render_template, Flask, request, redirect
+from flask import render_template, Flask, request, redirect, session
 import mysql.connector as connect, mysql
 
 config = {
@@ -30,15 +30,23 @@ materiais = []
 # criando pagina
 @app.route("/")
 def homepage():
+    username = None
+    if 'username' in session:
+        username = session['username']
     material = get_material()
-    return render_template("homepage.html", material=material, materiais=materiais)
+    return render_template("homepage.html", material=material, materiais=materiais, username=username)
 
 
-@app.route("/login")
+@app.route("/login", methods=['GET','POST'])
 def login():
+    if request.method == 'POST' and request.form['username'] != '':
+        session['username'] = request.form['username']
+        return redirect(url_for('homepage'))
     return render_template('login.html')
-
-
+@app.route('/logout')
+def logout():
+   session.pop('username', pop)
+   return redirect(url_for('homepage'))
 def get_material():
     mybd = conectorBD()
     cursor = mybd.cursor()
