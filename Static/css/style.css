@@ -1,378 +1,106 @@
-.logins {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+
+/* Estilos padrão para telas maiores */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #568ea3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.logins .overlap-wrapper {
-  background-color: #ffffff;
-  overflow: hidden;
-  width: 1440px;
-  height: 1024px;
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f1f1;
 }
 
-.logins .overlap {
-  position: relative;
-  width: 1622px;
-  height: 1172px;
-  top: -118px;
-  left: -59px;
+.login {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
 }
 
-.logins .ret-elip-poly {
-  position: absolute;
-  width: 1622px;
-  height: 1172px;
-  top: 0;
-  left: 0;
+.login p {
+    font-size: 24px;
+    color: #333;
 }
 
-.logins .overlap-group {
-  position: absolute;
-  width: 820px;
-  height: 1039px;
-  top: 0;
-  left: 0;
+.login h1 {
+    font-size: 18px;
+    margin-top: 20px;
 }
 
-.logins .polygon {
-  position: absolute;
-  width: 380px;
-  height: 378px;
-  top: 661px;
-  left: 192px;
+.login input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.logins .ellipse {
-  position: absolute;
-  width: 425px;
-  height: 407px;
-  top: 0;
-  left: 0;
-  background-color: #15b02e;
-  border-radius: 212.5px/203.5px;
-  box-shadow: 0px 4px 20px 10px #0078f040;
+.login h2 {
+    font-size: 18px;
+    margin-top: 20px;
 }
 
-.logins .rectangle {
-  position: absolute;
-  width: 518px;
-  height: 610px;
-  top: 293px;
-  left: 302px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: var(--shadow-blur-20);
+.login input[type="password"] {
+    margin-top: 10px;
 }
 
-.logins .img {
-  position: absolute;
-  width: 548px;
-  height: 538px;
-  top: 350px;
-  left: 860px;
+.login input[type="submit"] {
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.logins .login {
-  position: absolute;
-  width: 518px;
-  height: 439px;
-  top: 356px;
-  left: 282px;
+.login input[type="submit"]:hover {
+    background-color: #005ab4;
 }
 
-.logins .unstyled-button {
-  display: flex;
-  flex-direction: column;
-  width: 430px;
-  height: 46px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px;
-  position: absolute;
-  top: 393px;
-  left: 51px;
-  background-color: #15b02e;
-  border-radius: 5px;
-  overflow: hidden;
+h3 {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.logins .button {
-  position: relative;
-  width: fit-content;
-  margin-top: -0.88px;
-  font-family: var(--components-button-large-font-family);
-  font-weight: var(--components-button-large-font-weight);
-  color: var(--brancodefault);
-  font-size: var(--components-button-large-font-size);
-  letter-spacing: var(--components-button-large-letter-spacing);
-  line-height: var(--components-button-large-line-height);
-  white-space: nowrap;
-  font-style: var(--components-button-large-font-style);
-  all: unset;
-  box-sizing: border-box;
+.cadastro {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #0073e6;
+    margin-top: 10px;
 }
 
-.logins .senha {
-  height: 69px;
-  top: 161px;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 5px;
-  position: absolute;
+.cadastro:hover {
+    color: #005ab4;
 }
 
-.logins .group {
-  position: relative;
-  width: 283px;
-  height: 50px;
-  margin-top: -4.5px;
-}
-
-.logins .text-wrapper {
-  position: absolute;
-  height: 17px;
-  top: 0;
-  left: 0;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--pretopreto);
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.logins .img-2 {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 26px;
-  left: 257px;
-}
-
-.logins .line {
-  margin-bottom: -4.5px;
-  position: relative;
-  width: 289px;
-  height: 1px;
-  object-fit: cover;
-}
-
-.logins .div {
-  position: absolute;
-  width: 284px;
-  height: 27px;
-  top: 243px;
-  left: 111px;
-  background-color: #ffffff;
-}
-
-.logins .usurio {
-  height: 67px;
-  position: absolute;
-  top: 89px;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 5px;
-}
-
-.logins .group-2 {
-  margin-top: -5.5px;
-  position: relative;
-  width: 283px;
-  height: 50px;
-}
-
-.logins .line-2 {
-  margin-bottom: -5.5px;
-  position: relative;
-  width: 289px;
-  height: 1px;
-  object-fit: cover;
-}
-
-.logins .bem-vindos {
-  display: flex;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.logins .usurio-2 {
-  height: 69px;
-  position: relative;
-  margin-left: -10px;
-  margin-right: -10px;
-  display: flex;
-  flex-direction: column;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 5px;
-}
-
-.logins .div-wrapper {
-  position: relative;
-  width: 286px;
-  height: 68px;
-  margin-top: -13.5px;
-  margin-bottom: -5.5px;
-}
-
-.logins .text-wrapper-2 {
-  position: absolute;
-  width: 284px;
-  height: 68px;
-  top: 0;
-  left: 0;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--pretopreto);
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.logins .line-3 {
-  position: relative;
-  width: 289px;
-  height: 1px;
-  margin-bottom: -14px;
-  object-fit: cover;
-}
-
-.logins .text-wrapper-3 {
-  position: absolute;
-  height: 29px;
-  top: 320px;
-  left: 409px;
-  font-family: "PoetsenOne-Regular", Helvetica;
-  font-weight: 400;
-  color: #000000a6;
-  font-size: 24px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.logins .mensagem {
-  display: flex;
-  width: 591px;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  position: absolute;
-  top: 576px;
-  left: 869px;
-}
-
-.logins .fa-a-o-login-em {
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: "PoetsenOne-Regular", Helvetica;
-  font-weight: 400;
-  color: #ffffff;
-  font-size: 24px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.logins .span {
-  font-family: var(--poetsen-one-font-family);
-  font-weight: var(--poetsen-one-font-weight);
-  color: #ffffff;
-  font-size: var(--poetsen-one-font-size);
-  letter-spacing: var(--poetsen-one-letter-spacing);
-  font-style: var(--poetsen-one-font-style);
-  line-height: var(--poetsen-one-line-height);
-}
-
-.logins .text-wrapper-4 {
-  font-size: 30px;
-}
-
-.logins .footer {
-  position: absolute;
-  width: 1440px;
-  height: 100px;
-  top: 1042px;
-  left: 59px;
-  background-color: transparent;
-}
-
-.logins .rectangle-2 {
-  position: relative;
-  width: 1497px;
-  height: 100px;
-  top: 1px;
-  background-color: #15b02e;
-}
-
-.logins .czo-removebg-preview {
-  position: absolute;
-  width: 347px;
-  height: 284px;
-  top: 118px;
-  left: 1152px;
-  object-fit: cover;
-}
-
-.logins .senha-2 {
-  top: 599px;
-  left: 282px;
-  display: flex;
-  flex-direction: column;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 5px;
-  position: absolute;
-}
-
-.logins .group-3 {
-  position: relative;
-  width: 283px;
-  height: 50px;
-}
-
-.logins .line-4 {
-  position: relative;
-  width: 289px;
-  height: 1px;
-  object-fit: cover;
-}
-
-.logins .senha-3 {
-  top: 677px;
-  left: 287px;
-  display: flex;
-  flex-direction: column;
-  width: 518px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 5px;
-  position: absolute;
+/* Estilos para telas menores (móveis) */
+@media screen and (max-width: 768px) {
+    .login {
+        padding: 10px;
+    }
+    .login p {
+        font-size: 20px;
+    }
+    .login h1 {
+        font-size: 16px;
+    }
+    .login input, .login h2, .login input[type="password"] {
+        font-size: 14px;
+    }
+    .login input[type="submit"] {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
 }

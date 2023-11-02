@@ -9,9 +9,12 @@
 </head>
 <body>
     <header class="hm_header">
-        <p>Projeto Construção Civil</p>
+        <p class="nome_site">Projeto Construção Civil</p>
         {% if username != None %}
         <p>Usuario: {{username}}</p>
+        <form action="logout">
+            <button type="submit">Sair</button>
+        </form>
         {% else %}
         <a href="login" class="login">Fazer Login</a>
         {% endif %}

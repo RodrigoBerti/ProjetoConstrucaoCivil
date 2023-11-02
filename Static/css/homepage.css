@@ -30,13 +30,17 @@ main {
     display: flex;
     align-items: center;        
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 48px;
     font-weight: bold;
     color: white;
     background: linear-gradient(to right, gray,black);
     margin: 0px;
     height: 100px;
 }
+.nome_site{
+    font-size: 40px;
+    text-align: center;
+}
+
 @media(max-width:1200px){
     hm_header{
         width: 1000px
@@ -76,5 +80,5 @@ main {
     }
 }
 .login{
-    font-size: 10px;
+    font-size: 5px;
 }
