@@ -51,6 +51,25 @@ def login():
 def logout():
    session.pop('username', None)
    return redirect("/")
+
+#Rota para o link de cadastro
+@app.route("/cadastro")
+def cadastro():
+    return render_template('cadastro.html')
+#Rota para inserir as informações cadastrais no banco de dados
+@app.route("/cadastrar", methods=['POST','GET'])
+def cadastrar():
+    nome = request.form.get('nome')
+    sobrenome = request.form.get('sobrenome')
+    email = request.form.get('email')
+    senha = request.form.get('senha')
+    sql = 'INSERT INTO usuario (codusuario,nome,login,senha,premium,cpf) VALUES (%s,%s,%s,%s,%s,%s)'
+    val = (1,nome,email,senha,1,'00000000000')
+    mybd = conectorBD()
+    cursor = mybd.cursor()
+    cursor.execute(sql,val)
+    mybd.commit()
+    return render_template("login.html")
 def get_material():
     mybd = conectorBD()
     cursor = mybd.cursor()

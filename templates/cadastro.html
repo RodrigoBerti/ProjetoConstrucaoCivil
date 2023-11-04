@@ -5,19 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/homepage.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
 </head>
 <body>
     <main>
-        <form>
+        <form action="cadastrar" method="POST">
           <div class="login">
               <p>Cadastro</p>
               <h1>Nome</h1>
-              <input type="text" name="username">
+              <input type="text" name="nome">
               <h2>Sobre nome</h2>
-              <input type="text" name="username">
+              <input type="text" name="sobrenome">
               <h3>Email</h3>
-              <input type="email" name="username">
+              <input type="email" name="email">
               <h4>Senha</h4>
               <input type="password" name="senha">
               <input type="submit">
