@@ -17,6 +17,10 @@ main {
     background-color: #f1f1f1;
 }
 
+.logo{
+   width: 150px;
+   height 150px;
+}
 .login {
     background-color: #fff;
     padding: 40px;

@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/homepage.css')}}">
+    <link rel="SHORTCUT ICON" href="{{url_for('static',filename='Logo.png')}}" type="image/png">
 </head>
 <body>
     <header class="hm_header">
+        <img src="../static/Logo.png" class="logo">
         <p class="nome_site">Projeto Construção Civil</p>
         {% if username != None %}
         <p>Usuario: {{username}}</p>

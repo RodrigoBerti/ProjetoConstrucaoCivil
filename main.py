@@ -63,13 +63,18 @@ def cadastrar():
     sobrenome = request.form.get('sobrenome')
     email = request.form.get('email')
     senha = request.form.get('senha')
-    sql = 'INSERT INTO usuario (codusuario,nome,login,senha,premium,cpf) VALUES (%s,%s,%s,%s,%s,%s)'
-    val = (1,nome,email,senha,1,'00000000000')
-    mybd = conectorBD()
-    cursor = mybd.cursor()
-    cursor.execute(sql,val)
-    mybd.commit()
-    return render_template("login.html")
+    if verificaEmail(email) != True:
+        sql = 'INSERT INTO usuario (codusuario,nome,login,senha,premium,cpf) VALUES (%s,%s,%s,%s,%s,%s)'
+        val = (2,nome,email,senha,1,'00000000000')
+        mybd = conectorBD()
+        cursor = mybd.cursor()
+        cursor.execute(sql, val)
+        mybd.commit()
+        return render_template("login.html")
+    else:
+        flash("Email já cadastrado")
+        return redirect("cadastro")
+
 def get_material():
     mybd = conectorBD()
     cursor = mybd.cursor()
@@ -97,6 +102,17 @@ def excluir(index):
     materiais.pop(index)
     return redirect('/')
 
+def verificaEmail(email):
+    mybd = conectorBD()
+    cursor = mybd.cursor()
+    comando_sql = f"select usuario.login from usuario where usuario.login = '{email}' "
+    cursor.execute(comando_sql)
+    status_email = cursor.fetchone()
+    if status_email != "":
+        return True
+    else:
+        return False
+
 
 if __name__ == "__main__":
     caminho_da_imagem = 'Design-sem-nome.png'
@@ -104,4 +120,4 @@ if __name__ == "__main__":
     imagem_processada = preprocessar_imagem(imagem)
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
-    app.run(host='localhost', debug=True)
+    app.run(host='192.168.0.166', debug=True)

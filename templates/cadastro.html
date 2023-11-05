@@ -9,8 +9,17 @@
 </head>
 <body>
     <main>
+        {% set mensagens = get_flashed_messeges %}
+        {% if  mensagens %}
+            <div>
+                {% for msg in mensagens %}
+                    {{msg}}
+                {% endfor %}
+            </div>>
+        {% endif %}
         <form action="cadastrar" method="POST">
           <div class="login">
+              <img src="../static/Logo.png" class="logo">
               <p>Cadastro</p>
               <h1>Nome</h1>
               <input type="text" name="nome">

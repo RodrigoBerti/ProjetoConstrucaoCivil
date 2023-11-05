@@ -26,6 +26,10 @@ main {
         padding: 10px; /* Reduz o espaçamento na parte superior */
     }
 }
+.logo{
+   width: 90px;
+   height 15px;
+}
 .hm_header {
     display: flex;
     align-items: center;        
