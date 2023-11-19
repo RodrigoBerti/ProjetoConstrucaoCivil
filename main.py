@@ -9,7 +9,7 @@ config = {
     'host':'localhost',
     'user':'root',
     'password':'masterkey',
-    'database':'Teste',
+    'database':'projetoconstrucaocivil',
 }
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "1234"
@@ -43,13 +43,21 @@ def homepage():
 @app.route("/login", methods=['GET','POST'])
 def login():
     if request.method == 'POST' and request.form['username'] != '':
-        session['username'] = request.form['username']
-        session['senha'] = request.form['senha']
+        mybd = conectorBD()
+        cursor = mybd.cursor()
+        cursor.execute(f"select usuario.codusuario from usuario where usuario.email='{request.form['username']}' and usuario.senha={request.form['senha']}")
+
+        if not cursor.fetchall():
+            flash('Username ou senha incorretos ou usuário não encontrado')
+            return render_template("login.html")
+
+        session['codusuario'] = cursor.fetchall()
+        cursor.execute('select material.descricao from material')
         return redirect('/')
     return render_template("login.html")
 @app.route('/logout')
 def logout():
-   session.pop('username', None)
+   session.pop('codusuario', None)
    return redirect("/")
 
 #Rota para o link de cadastro
@@ -64,8 +72,8 @@ def cadastrar():
     email = request.form.get('email')
     senha = request.form.get('senha')
     if verificaEmail(email) != True:
-        sql = 'INSERT INTO usuario (codusuario,nome,login,senha,premium,cpf) VALUES (%s,%s,%s,%s,%s,%s)'
-        val = (2,nome,email,senha,1,'00000000000')
+        sql = 'INSERT INTO usuario (nome,login,senha,premium) VALUES (%s,%s,%s,%s)'
+        val = (nome,email,senha,0)
         mybd = conectorBD()
         cursor = mybd.cursor()
         cursor.execute(sql, val)
@@ -105,10 +113,9 @@ def excluir(index):
 def verificaEmail(email):
     mybd = conectorBD()
     cursor = mybd.cursor()
-    comando_sql = f"select usuario.login from usuario where usuario.login = '{email}' "
+    comando_sql = f"select usuario.login from usuario where usuario.email = '{email}' "
     cursor.execute(comando_sql)
-    status_email = cursor.fetchone()
-    if status_email != "":
+    if not cursor.fetchone():
         return True
     else:
         return False
@@ -120,4 +127,4 @@ if __name__ == "__main__":
     imagem_processada = preprocessar_imagem(imagem)
     texto_extraido = extrair_informacoes(imagem_processada)
     informacoes = analisar_informacoes(texto_extraido)
-    app.run(host='192.168.0.166', debug=True)
+    app.run(host='localhost', debug=True)
