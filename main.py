@@ -9,7 +9,7 @@ config = {
     'host':'localhost',
     'user':'root',
     'password':'masterkey',
-    'database':'projetoconstrucaocivil',
+    'database':'teste',
 }
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "1234"
@@ -36,8 +36,12 @@ def homepage():
     senha = None
     if 'username' in session:
         username = session['username']
+    return render_template("homepage.html",username=username)
+
+@app.route("/orcamento")    # adiciona os materiais no orcamento
+def ormamento():
     material = get_material()
-    return render_template("homepage.html", material=material, materiais=materiais, username=username)
+    return render_template("orcamento.html", material=material, materiais=materiais)
 
 #Função para fazer o login
 @app.route("/login", methods=['GET','POST'])
@@ -53,7 +57,7 @@ def login():
 
         session['codusuario'] = cursor.fetchall()
         cursor.execute('select material.descricao from material')
-        return redirect('/')
+        return redirect('/index')
     return render_template("login.html")
 @app.route('/logout')
 def logout():

@@ -9,61 +9,32 @@
     <link rel="SHORTCUT ICON" href="{{url_for('static',filename='Logo.png')}}" type="image/png">
 </head>
 <body>
+
     <header class="hm_header">
         <img src="../static/Logo.png" class="logo">
         <p class="nome_site">Projeto Construção Civil</p>
         {% if username != None %}
-        <p>Usuario: {{username}}</p>
-        <form action="logout">
-            <button type="submit">Sair</button>
-        </form>
+            <p>Usuario: {{username}}</p>
+            <form action="logout">
+                <button type="submit">Sair</button>
+            </form>
         {% else %}
         <a href="login" class="login">Fazer Login</a>
         {% endif %}
     </header>
     <main>
-        <div class="hm_caixaCaptura">
-            <form action="/pegaImagem" method="get">
-            <p><label for="imagemPlanta">Insira a imagem da planta da casa. </label></p>
-            <br>
-            <div><input type="file" class="hm_" id="imagemPlanta" name="imagemPlanta" accept="image/*" formaction="URL" src="URL"></div>
-            <br><br><br>
-            <input type="submit" value="Enviar">
-            </form>
-        </div>
-        <br>
-        <div class="hm_caixaCaptura">
-            {% block conteudo %}
-                <form action="adicionar" method="POST">
-                    <label >Selecione o material</label>
-                    <br><br>
-                    <select name="materiais">
-                        {% for mat in material %}
-                        <option>{{mat}}</option>
-                        {% endfor %}
-                    </select>
-                    <br><br>
-                    Quantidade:<input type="number" name="quantidade">
-                    <br><br>
-                    <button type="submit">Adicionar</button>
-                </form>
-            {% endblock %}
-        </div>
-        <div class="hm_caixaCaptura">
-            <br>
-            <label>Lista de materiais adicionados</label><br>
-            <ul>
-                {% for mats in materiais %}
-                <li>
-                    <form action="/atualizar/{{loop.index0}}" method="POST">
-                        <span>{{mats['material']}} | <input name="quantidade" value="{{mats['quantidade']}}"></span>
-                        <button type="submit">Editar</button>
-                        <a href="/excluir/{{loop.index0 }}"> ❌</a>
-                    </form>
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="container">
+            <button class="arrow-left control" aria-label="Previous image">&#129092;</button>
+            <button class="arrow-right control" aria-label="Next image">&#129094;</button>
+            <section class="galeria">
+                <div class="fotos">
+                    <img src="{{ url_for('static', filename='img/foto1.jpg') }}" alt="construcao image1" class="imagem-carrosel current-item">
+                    <img src="{{ url_for('static', filename='img/foto2.jpg') }}" alt="construcao image2" class="imagem-carrosel current-item">
+                    <img src="{{ url_for('static', filename='img/foto3.jpg') }}" alt="construcao image3" class="imagem-carrosel current-item">
+                </div>
+            </section>
         </div>
     </main>
+    <script src="{{url_for('static', filename='js/homepage.js')}}"></script>
 </body>
 </html>
