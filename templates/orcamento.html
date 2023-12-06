@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/orcamento.css')}}">
+    <link rel="SHORTCUT ICON" href="{{url_for('static',filename='Logo.png')}}" type="image/png">
+</head>
+<body>
+    <header class="hm_header">
+        <img src="../static/Logo.png" class="logo">
+        <p class="nome_site">Projeto Construção Civil</p>
+        <a href="/">Voltar a pagina incial</a>
+    </header>
+    <main>
+        <div class="hm_caixaCaptura">
+            <form action="/pegaImagem" method="get">
+            <p><label for="imagemPlanta">Insira a imagem da planta da casa. </label></p>
+            <br>
+            <div><input type="file" class="hm_" id="imagemPlanta" name="imagemPlanta" accept="image/*" formaction="URL" src="URL"></div>
+            <br><br><br>
+            <input type="submit" value="Enviar">
+            </form>
+        </div>
+        <br>
+        <div class="hm_caixaCaptura">
+            {% block conteudo %}
+                <form action="adicionar" method="POST">
+                    <label >Selecione o material</label>
+                    <br><br>
+                    <select name="materiais">
+                        {% for mat in material %}
+                        <option>{{mat}}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
+                    Quantidade:<input type="number" name="quantidade">
+                    <br><br>
+                    <button type="submit">Adicionar</button>
+                </form>
+            {% endblock %}
+        </div>
+        <div class="hm_caixaCaptura">
+            <br>
+            <label>Lista de materiais adicionados</label><br>
+            <ul>
+                {% for mats in materiais %}
+                <li>
+                    <form action="/atualizar/{{loop.index0}}" method="POST">
+                        <span>{{mats['material']}} | <input name="quantidade" value="{{mats['quantidade']}}"></span>
+                        <button type="submit">Editar</button>
+                        <a href="/excluir/{{loop.index0 }}"> ❌</a>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <p>Todos os direitos reservados</p>
+        <div class="rodape">
+            <li>Termos de uso</li>
+            <li>Politicas de privacidade</li>
+        </div>
+    </footer>
+</body>
+</html>
