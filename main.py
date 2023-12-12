@@ -4,6 +4,7 @@ from lerImagens import *
 import requests.utils
 from flask import render_template, Flask, request, redirect, session, flash
 import mysql.connector as connect, mysql
+import bcrypt
 
 config = {
     'host':'localhost',
@@ -47,10 +48,21 @@ def ormamento():
 @app.route("/login", methods=['GET','POST'])
 def login():
     if request.method == 'POST' and request.form['username'] != '':
+        username = request.form['username']
+        senhaInformada = request.form['senha']
+        salt = bcrypt.gensalt(10)
+        senha_bytes = senhaInformada.encode('utf-8')
+        hashed = bcrypt.hashpw(senha_bytes,salt)
         mybd = conectorBD()
         cursor = mybd.cursor()
-        cursor.execute(f"select usuario.codusuario from usuario where usuario.email='{request.form['username']}' and usuario.senha={request.form['senha']}")
-
+        cursor.execute(f'select usuario.senha from usuario where usuario.login="{username}"')
+        senhaBD = cursor.fetchone()[0]
+        if bcrypt.hashpw(senha_bytes,salt) == str(senhaBD).encode('utf-8'):
+            print("Corresponde")
+        else:
+            print("Não corresponde")
+        print(hashed)
+        print(senhaBD)
         if not cursor.fetchall():
             flash('Username ou senha incorretos ou usuário não encontrado')
             return render_template("login.html")
@@ -75,9 +87,11 @@ def cadastrar():
     sobrenome = request.form.get('sobrenome')
     email = request.form.get('email')
     senha = request.form.get('senha')
+    senha_bytes = senha.encode('utf-8')
+    hashed = bcrypt.hashpw(senha_bytes,bcrypt.gensalt(10))
     if verificaEmail(email) != True:
-        sql = 'INSERT INTO usuario (nome,login,senha,premium) VALUES (%s,%s,%s,%s)'
-        val = (nome,email,senha,0)
+        sql = 'INSERT INTO usuario (nome,login,senha,premium) VALUES (%s,%s,"%s",%s)'
+        val = (nome,email,hashed,1)
         mybd = conectorBD()
         cursor = mybd.cursor()
         cursor.execute(sql, val)
@@ -123,7 +137,6 @@ def verificaEmail(email):
         return True
     else:
         return False
-
 
 if __name__ == "__main__":
     caminho_da_imagem = 'Design-sem-nome.png'
