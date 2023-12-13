@@ -50,22 +50,24 @@ def login():
     if request.method == 'POST' and request.form['username'] != '':
         username = request.form['username']
         senhaInformada = request.form['senha']
-        salt = bcrypt.gensalt(10)
         senha_bytes = senhaInformada.encode('utf-8')
-        hashed = bcrypt.hashpw(senha_bytes,salt)
+
         mybd = conectorBD()
         cursor = mybd.cursor()
-        cursor.execute(f'select usuario.senha from usuario where usuario.login="{username}"')
-        senhaBD = cursor.fetchone()[0]
-        if bcrypt.hashpw(senha_bytes,salt) == str(senhaBD).encode('utf-8'):
-            print("Corresponde")
-        else:
-            print("Não corresponde")
-        print(hashed)
-        print(senhaBD)
-        if not cursor.fetchall():
-            flash('Username ou senha incorretos ou usuário não encontrado')
-            return render_template("login.html")
+        cursor.execute(f'select usuario.senha, usuario.salt from usuario where usuario.login="{username}"')
+        resultado = cursor.fetchone()
+
+        if resultado:
+            senhaBD_hash = resultado[0].encode('utf-8')
+            salt = resultado[1].encode('utf-8')
+            if bcrypt.hashpw(senha_bytes,salt) == senhaBD_hash:
+                print("Corresponde")
+            else:
+                print("Não corresponde")
+
+            if not cursor.fetchall():
+                flash('Username ou senha incorretos ou usuário não encontrado')
+                return render_template("login.html")
 
         session['codusuario'] = cursor.fetchall()
         cursor.execute('select material.descricao from material')
@@ -87,11 +89,14 @@ def cadastrar():
     sobrenome = request.form.get('sobrenome')
     email = request.form.get('email')
     senha = request.form.get('senha')
-    senha_bytes = senha.encode('utf-8')
-    hashed = bcrypt.hashpw(senha_bytes,bcrypt.gensalt(10))
+    salt = bcrypt.gensalt()
+    senha_concatenada = senha + salt.decode('utf-8')
+    hashed = bcrypt.hashpw(senha_concatenada.encode('utf-8'),salt)
+    print(hashed)
+    print(salt)
     if verificaEmail(email) != True:
-        sql = 'INSERT INTO usuario (nome,login,senha,premium) VALUES (%s,%s,"%s",%s)'
-        val = (nome,email,hashed,1)
+        sql = 'INSERT INTO usuario (nome,login,senha,salt,premium) VALUES (%s,%s,"%s","%s",%s)'
+        val = (nome,email,hashed,salt,1)
         mybd = conectorBD()
         cursor = mybd.cursor()
         cursor.execute(sql, val)
