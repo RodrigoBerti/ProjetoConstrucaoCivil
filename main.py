@@ -60,7 +60,8 @@ def login():
         if resultado:
             senhaBD_hash = resultado[0].encode('utf-8')
             salt = resultado[1].encode('utf-8')
-            if bcrypt.hashpw(senha_bytes,salt) == senhaBD_hash:
+            print(salt)
+            if bcrypt.hashpw(senha_bytes,salt) == senhaBD_hash :
                 print("Corresponde")
             else:
                 print("Não corresponde")
@@ -94,14 +95,19 @@ def cadastrar():
     hashed = bcrypt.hashpw(senha_concatenada.encode('utf-8'),salt)
     print(hashed)
     print(salt)
-    if verificaEmail(email) != True:
-        sql = 'INSERT INTO usuario (nome,login,senha,salt,premium) VALUES (%s,%s,"%s","%s",%s)'
-        val = (nome,email,hashed,salt,1)
+    if verificaEmail(email) == True:
+        sql = 'INSERT INTO usuario (nome,login,senha,premium,salt) VALUES (%s,%s,"%s",%s,"%s")'
+        val = (nome,email,hashed,1,salt)
         mybd = conectorBD()
-        cursor = mybd.cursor()
-        cursor.execute(sql, val)
-        mybd.commit()
-        return render_template("login.html")
+        try:
+            cursor = mybd.cursor()
+            cursor.execute(sql, val)
+            mybd.commit()
+            return render_template("login.html")
+        except Exception as e:
+            print(f"Erro no cadastro: {str(e)}")
+            flash("Ocorreu um erro no cadastro.")
+            return redirect("cadastro")
     else:
         flash("Email já cadastrado")
         return redirect("cadastro")
@@ -136,7 +142,7 @@ def excluir(index):
 def verificaEmail(email):
     mybd = conectorBD()
     cursor = mybd.cursor()
-    comando_sql = f"select usuario.login from usuario where usuario.email = '{email}' "
+    comando_sql = f"select usuario.login from usuario where usuario.login = '{email}' "
     cursor.execute(comando_sql)
     if not cursor.fetchone():
         return True
