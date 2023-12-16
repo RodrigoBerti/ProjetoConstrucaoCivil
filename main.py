@@ -10,7 +10,7 @@ config = {
     'host':'localhost',
     'user':'root',
     'password':'masterkey',
-    'database':'teste',
+    'database':'projetoconstrucaocivil',
 }
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "1234"
@@ -51,17 +51,20 @@ def login():
         username = request.form['username']
         senhaInformada = request.form['senha']
         senha_bytes = senhaInformada.encode('utf-8')
-
         mybd = conectorBD()
         cursor = mybd.cursor()
         cursor.execute(f'select usuario.senha, usuario.salt from usuario where usuario.login="{username}"')
-        resultado = cursor.fetchone()
+        resultado = list(cursor.fetchone())
+        resultado[0] = resultado[0].replace("'","")
+        resultado[1] = resultado[0].replace("'", "")
 
         if resultado:
             senhaBD_hash = resultado[0].encode('utf-8')
             salt = resultado[1].encode('utf-8')
-            print(salt)
-            if bcrypt.hashpw(senha_bytes,salt) == senhaBD_hash :
+            print(f'salt utilizado {salt}\n')
+            print(f'senha informada: {bcrypt.hashpw(senha_bytes,salt)}')
+            print(f'Senha BD: {senhaBD_hash}')
+            if bcrypt.checkpw(senha_bytes,senhaBD_hash):
                 print("Corresponde")
             else:
                 print("Não corresponde")
@@ -95,9 +98,9 @@ def cadastrar():
     hashed = bcrypt.hashpw(senha_concatenada.encode('utf-8'),salt)
     print(hashed)
     print(salt)
-    if verificaEmail(email) == True:
-        sql = 'INSERT INTO usuario (nome,login,senha,premium,salt) VALUES (%s,%s,"%s",%s,"%s")'
-        val = (nome,email,hashed,1,salt)
+    if verificaEmail(email):
+        sql = 'INSERT INTO usuario (nome,login,email,senha,premium,salt) VALUES (%s,%s,%s,"%s",%s,"%s")'
+        val = (nome,email,email,hashed,1,salt)
         mybd = conectorBD()
         try:
             cursor = mybd.cursor()
