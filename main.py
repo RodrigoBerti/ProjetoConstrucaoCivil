@@ -10,7 +10,7 @@ config = {
     'host':'localhost',
     'user':'root',
     'password':'masterkey',
-    'database':'projetoconstrucaocivil',
+    'database':'teste',
 }
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "1234"
@@ -53,11 +53,11 @@ def login():
         senha_bytes = senhaInformada.encode('utf-8')
         mybd = conectorBD()
         cursor = mybd.cursor()
-        cursor.execute(f'select usuario.senha, usuario.salt from usuario where usuario.login="{username}"')
+        cursor.execute(f'select usuario.senha, usuario.salt, usuario.codusuario from usuario where usuario.login="{username}"')
         resultado = list(cursor.fetchone())
         resultado[0] = resultado[0].replace("'","")
-        resultado[1] = resultado[0].replace("'", "")
-
+        resultado[1] = resultado[1].replace("'", "")
+        print(resultado[2])
         if resultado:
             senhaBD_hash = resultado[0].encode('utf-8')
             salt = resultado[1].encode('utf-8')
@@ -66,6 +66,8 @@ def login():
             print(f'Senha BD: {senhaBD_hash}')
             if bcrypt.checkpw(senha_bytes,senhaBD_hash):
                 print("Corresponde")
+                session['codusuario'] = resultado[2]
+                return redirect('/')
             else:
                 print("Não corresponde")
 
@@ -73,9 +75,6 @@ def login():
                 flash('Username ou senha incorretos ou usuário não encontrado')
                 return render_template("login.html")
 
-        session['codusuario'] = cursor.fetchall()
-        cursor.execute('select material.descricao from material')
-        return redirect('/index')
     return render_template("login.html")
 @app.route('/logout')
 def logout():
@@ -95,9 +94,10 @@ def cadastrar():
     senha = request.form.get('senha')
     salt = bcrypt.gensalt()
     senha_concatenada = senha + salt.decode('utf-8')
-    hashed = bcrypt.hashpw(senha_concatenada.encode('utf-8'),salt)
+    hashed = bcrypt.hashpw(senha.encode('utf-8'),salt)
     print(hashed)
     print(salt)
+    print(salt.decode('utf-8'))
     if verificaEmail(email):
         sql = 'INSERT INTO usuario (nome,login,email,senha,premium,salt) VALUES (%s,%s,%s,"%s",%s,"%s")'
         val = (nome,email,email,hashed,1,salt)
