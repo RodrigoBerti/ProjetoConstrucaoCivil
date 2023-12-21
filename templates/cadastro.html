@@ -18,7 +18,7 @@
                 {% endfor %}
             </div>>
         {% endif %}
-        <form action="cadastrar" method="POST">
+        <form id="cadastrarForm" action="cadastrar" method="POST">
           <div class="login">
               <img src="../static/Logo.png" class="logo">
               <p>Cadastro</p>
@@ -28,6 +28,9 @@
               <input type="text" name="sobrenome">
               <h3>Email</h3>
               <input type="email" name="email">
+              <h4>CPF</h4>
+              <input type="number" name="cpf" oninput="validacao()">
+              <div id="cpfErro" style="color: red;"></div>
               <h4>Senha</h4>
               <input type="password" name="senha">
               <input type="submit">
@@ -43,5 +46,6 @@
             <li>Contato</li>
         </div>
     </footer>
+    <script src="{{url_for('static', filename='js/Cadastro.js')}}"></script>
 </body>
 </html>
